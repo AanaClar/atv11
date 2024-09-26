@@ -1,0 +1,38 @@
+---
+- name: Deploy TodoList Application
+  hosts: todolist
+  become: yes
+
+  tasks:
+    - name: Copy script to remote host
+      copy:
+        src: ./docker_install.sh.sh
+        dest: ~/docker_install.sh
+        owner: root
+        group: root
+        mode: '0744'
+
+    - name: Make script executable by root
+      file:
+        path: ~/docker_install.sh
+        mode: '0700'
+
+    - name: Execute script as root
+      command: ~/docker_install.sh
+
+  tasks:
+    - name: Criando docker com a aplicação
+      copy:
+        src: ./docker_setup.sh
+        dest: ~/docker_setup.sh
+        owner: root
+        group: root
+        mode: '0744'
+
+    - name: Make script executable by root
+      file:
+        path: ~/docker_setup.sh
+        mode: '0700'
+
+    - name: Execute script as root
+      command: ~/docker_setup.sh
